@@ -1,14 +1,16 @@
-# Pop-up Videos
+# Pop-up Videos <img alt="Logo" src="./ext/icons/icon48.png" height="24px" />
 
-Opens all the videos in a tab as pop-up windows, and keeps opening windows when new videos appear. You can drag the windows around to put them on different monitors, for example. It also comes in handy when you want to capture (multiple) videos from a web page to use in other programs, like OBS Studio.
+Opens all the videos in a tab as pop-up windows, and keeps opening windows when new videos appear. You can drag the windows around to put them on different monitors, for example. It also comes in handy when you want to capture (multiple) videos from a web page to use in other programs, like [OBS Studio](https://obsproject.com).
+
+<img alt="Screenshot" title="Screenshot" src="screenshot.jpg" width="3840px" />
 
 ## Download
 
 Get [Pop-up Videos](https://chrome.google.com/webstore/detail/babkffilagdlhoeopgfnhfnomhicjodj/) from the Chrome Web Store.
 
-## Pop-up Videos
+## Pop-out Jitsi Meet
 
-Also check out my [Pop-out Jitsi Meet](https://github.com/Jip-Hop/jitsi-pop) extension, which does what this extension does (+ more) and is made specifically for Jitsi Meet.
+Also check out my [Pop-out Jitsi Meet](https://github.com/Jip-Hop/jitsi-pop) extension, which does what this extension does (+ more) and is made specifically for [Jitsi Meet](https://meet.jit.si).
 
 ## Use case scenario:
 
@@ -17,7 +19,7 @@ Also check out my [Pop-out Jitsi Meet](https://github.com/Jip-Hop/jitsi-pop) ext
 - The tab will open in its own window, to ensure videos continue to play even in the background.
 - Pop-ups will open for all videos in the conference page.
 - You can move some of the videos to a different monitor and make them full screen, and close the others you don't need.
-- Use OBS Studio to grab the full screen video, and use it in your live stream.
+- Use [OBS Studio](https://obsproject.com) to grab the full screen video, and use it in your live stream.
 - During the live stream, you can still use the Jitsi Meet interface as usual without it appearing in the window capture from OBS Studio.
 
 ## Remarks:
