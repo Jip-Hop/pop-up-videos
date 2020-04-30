@@ -207,6 +207,7 @@ const enable = (options) => {
           // TODO: maybe check first if there's already a srcObject I can access, to I don't have to capture a new one...
           // In that case I'd have to keep updating the target srcObject if the source changes
           const stream = video.captureStream();
+          // TODO: Mappertje integration
           const newVid = win.document.createElement("video");
           newVid.muted = true;
           newVid.autoplay = true;
@@ -220,7 +221,7 @@ const enable = (options) => {
         } catch (e) {
           // Use canvas as a fallback when captureStream fails due to CORS
           const canvas = win.document.createElement("canvas");
-
+          // TODO: Do captureStream() on canvas for Mappertje integration
           wrapper.appendChild(canvas);
 
           const ctx = canvas.getContext("2d");
@@ -266,6 +267,7 @@ const enable = (options) => {
           startAnimating(30);
         }
 
+        // TODO: add "Enter" keyboard shortcut for full screen
         const button = win.document.createElement("button");
         button.textContent = "Full Screen";
 
