@@ -6,7 +6,7 @@ var xOffset = screen.availLeft,
   yOffset = screen.availTop;
 
 const initWindowVariables = () => {
-  data = { windows: [], videos: [], warned: false };
+  data = { windows: [], videos: [] };
 };
 initWindowVariables();
 
