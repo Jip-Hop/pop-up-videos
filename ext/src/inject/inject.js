@@ -2,21 +2,21 @@ var data;
 var enabled = false;
 var popupWidth = 480;
 var popupHeight = 270;
-var xOffset = 0,
-  yOffset = 0;
+var xOffset = screen.availLeft,
+  yOffset = screen.availTop;
 
 const initWindowVariables = () => {
   data = { windows: [], videos: [], warned: false };
 };
 initWindowVariables();
 
-chrome.runtime.sendMessage({ type: "load" }, function(response) {
+chrome.runtime.sendMessage({ type: "load" }, function (response) {
   if (response && response.enabled) {
     enable();
   }
 });
 
-chrome.runtime.onMessage.addListener(function(message) {
+chrome.runtime.onMessage.addListener(function (message) {
   if (message && message.enabled) {
     enable();
   } else if (message && message.rerun) {
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(function(message) {
 });
 
 const closeAllPopups = () => {
-  data.windows.forEach(win => {
+  data.windows.forEach((win) => {
     try {
       win.close();
     } catch (e) {
@@ -47,7 +47,7 @@ const disable = () => {
   initWindowVariables();
 };
 
-const enable = options => {
+const enable = (options) => {
   if (!options) {
     options = {};
   }
@@ -61,7 +61,7 @@ const enable = options => {
 
   if (options.rerun) {
     // Remove references to closed windows and videos, so we can reopen them
-    data.windows.slice().forEach(win => {
+    data.windows.slice().forEach((win) => {
       if (win.closed) {
         const index = data.windows.indexOf(win);
         if (index > -1) {
@@ -144,23 +144,23 @@ const enable = options => {
 
     const sourceVideos = document.querySelectorAll("video");
 
-    sourceVideos.forEach(video => {
+    sourceVideos.forEach((video) => {
       const videoIndex = data.videos.indexOf(video);
       var win;
 
       // Video may not be muted, else it won't play in the background
-      const unmute = video => {
+      const unmute = (video) => {
         if (video.muted) {
           video.volume = 0;
           video.muted = false;
         }
       };
-      video.onvolumechange = function() {
+      video.onvolumechange = function () {
         unmute(video);
       };
       unmute(video);
 
-      const onWinLoad = win => {
+      const onWinLoad = (win) => {
         // Try if we can access the window
         try {
           // Don't setup for closed windows
@@ -227,7 +227,7 @@ const enable = options => {
 
           var fpsInterval, startTime, now, then, elapsed, lastTime;
 
-          const startAnimating = fps => {
+          const startAnimating = (fps) => {
             fpsInterval = 1000 / fps;
             then = window.performance.now();
             startTime = then;
@@ -274,7 +274,7 @@ const enable = options => {
         };
 
         win.onresize = () => {
-          if (win.innerHeight == win.screen.height) {
+          if (win.innerHeight === win.screen.height) {
             // Full screen, also covers cased not using HTML5 fullscreen api
             button.style.display = "none";
           } else {
@@ -297,13 +297,13 @@ const enable = options => {
         }
 
         xOffset += popupWidth;
-        if (xOffset + popupWidth > screen.width) {
-          xOffset = 0;
+        if (xOffset + popupWidth > screen.availWidth) {
+          xOffset = screen.availLeft;
           yOffset += popupHeight;
         }
-        if (yOffset + popupHeight > screen.height) {
-          xOffset = 0;
-          yOffset = 0;
+        if (yOffset + popupHeight > screen.availHeight) {
+          xOffset = screen.availLeft;
+          yOffset = screen.availTop;
         }
 
         if (win.document.readyState === "complete") {
@@ -320,7 +320,7 @@ const enable = options => {
 
       onWinLoad(win);
     });
-    data.videos.slice().forEach(video => {
+    data.videos.slice().forEach((video) => {
       // Video no longer in source document, close window
       if ([].indexOf.call(sourceVideos, video) === -1) {
         const index = data.videos.indexOf(video);
