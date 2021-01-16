@@ -1,6 +1,6 @@
 {
   "name": "Pop-up Videos",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "manifest_version": 2,
   "description": "Open all videos in a tab as pop-up windows.",
   "icons": {
