@@ -124,12 +124,12 @@ const enable = (options) => {
       if (parentId && parentId.startsWith("participant_")) {
         jitsiDisplayName = document.querySelector("#" + parentId + "_name");
         if (jitsiDisplayName && jitsiDisplayName.textContent) {
-          titleSuffix = jitsiDisplayName.textContent + " [Jitsi]";;
+          titleSuffix = jitsiDisplayName.textContent + " [Jitsi]";
         }
       } else if (video.id && video.id.startsWith("localVideo_container")) {
         jitsiDisplayName = document.querySelector("#localDisplayName");
         if (jitsiDisplayName && jitsiDisplayName.textContent) {
-          titleSuffix = jitsiDisplayName.textContent + " [Jitsi]";;
+          titleSuffix = jitsiDisplayName.textContent + " [Jitsi]";
         }
       } else if (video.id) {
         titleSuffix = video.id + " [id]";
@@ -274,13 +274,20 @@ const enable = (options) => {
           startAnimating(30);
         }
 
-        // TODO: add "Enter" keyboard shortcut for full screen
+        
         const button = win.document.createElement("button");
         button.textContent = "Full Screen";
 
         button.onclick = () => {
           wrapper.requestFullscreen();
         };
+
+        // "Enter" keyboard shortcut for full screen
+        win.document.documentElement.addEventListener("keypress", (e) => {
+          if (e.key === 'Enter') {
+            wrapper.requestFullscreen();
+          }
+        });
 
         win.onresize = () => {
           if (win.innerHeight === win.screen.height) {
