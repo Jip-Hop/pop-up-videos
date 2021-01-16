@@ -211,7 +211,7 @@ const enable = (options) => {
         win.document.body.appendChild(wrapper);
 
         try {
-          // TODO: maybe check first if there's already a srcObject I can access, to I don't have to capture a new one...
+          // TODO: maybe check first if there's already a srcObject I can access, so I don't have to capture a new one...
           // In that case I'd have to keep updating the target srcObject if the source changes
           const stream = video.captureStream();
           // TODO: Mappertje integration
@@ -284,7 +284,7 @@ const enable = (options) => {
 
         win.onresize = () => {
           if (win.innerHeight === win.screen.height) {
-            // Full screen, also covers cased not using HTML5 fullscreen api
+            // Full screen, also covers case of not using HTML5 fullscreen api
             button.style.display = "none";
           } else {
             button.style.display = "";
