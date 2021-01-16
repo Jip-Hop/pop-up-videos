@@ -1,3 +1,4 @@
+var titleSuffixCounter = 0;
 var data;
 var enabled = false;
 var popupWidth = 480;
@@ -117,26 +118,32 @@ const enable = (options) => {
     const setTitle = (win, video) => {
       var jitsiDisplayName;
       var parentId = video.parentElement.id;
+      var titleSuffix;
 
       // Jitsi Meet specific code for window titles
       if (parentId && parentId.startsWith("participant_")) {
         jitsiDisplayName = document.querySelector("#" + parentId + "_name");
         if (jitsiDisplayName && jitsiDisplayName.textContent) {
-          jitsiDisplayName = jitsiDisplayName.textContent;
+          titleSuffix = jitsiDisplayName.textContent + " [Jitsi]";;
         }
       } else if (video.id && video.id.startsWith("localVideo_container")) {
         jitsiDisplayName = document.querySelector("#localDisplayName");
         if (jitsiDisplayName && jitsiDisplayName.textContent) {
-          jitsiDisplayName = jitsiDisplayName.textContent;
+          titleSuffix = jitsiDisplayName.textContent + " [Jitsi]";;
         }
+      } else if (video.id) {
+        titleSuffix = video.id + " [id]";
+      } else if (video.hasAttribute("jiptitlesuffix")) {
+        titleSuffix = video.getAttribute("jiptitlesuffix");
+      } else {
+        titleSuffixCounter++;
+        titleSuffix = titleSuffixCounter + " [#]";
+        video.setAttribute("jiptitlesuffix", titleSuffix);
       }
 
       // Window may be temporarily inaccessible when a reload is in process
       try {
-        win.document.title =
-          window.location.hostname +
-          " | " +
-          (jitsiDisplayName ? jitsiDisplayName : video.id);
+        win.document.title = window.location.hostname + " | " + titleSuffix;
       } catch (e) {
         console.log(e);
       }
