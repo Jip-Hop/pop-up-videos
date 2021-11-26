@@ -210,22 +210,24 @@ const enable = (options) => {
         wrapper.id = "wrapper";
         win.document.body.appendChild(wrapper);
 
-        try {
-          // TODO: maybe check first if there's already a srcObject I can access, so I don't have to capture a new one...
-          // In that case I'd have to keep updating the target srcObject if the source changes
-          const stream = video.captureStream();
-          // TODO: Mappertje integration
-          const newVid = win.document.createElement("video");
-          newVid.muted = true;
-          newVid.autoplay = true;
-          newVid.controls = false;
-          video.onplay = () => {
-            // Keep them linked, also when restarting playback
-            newVid.srcObject = video.captureStream();
-          };
-          newVid.srcObject = stream;
-          wrapper.appendChild(newVid);
-        } catch (e) {
+        // Don't use captureStream() for now as it introduced audio-mute issues
+
+        // try {
+        //   // TODO: maybe check first if there's already a srcObject I can access, so I don't have to capture a new one...
+        //   // In that case I'd have to keep updating the target srcObject if the source changes
+        //   const stream = video.captureStream();
+        //   // TODO: Mappertje integration
+        //   const newVid = win.document.createElement("video");
+        //   newVid.muted = true;
+        //   newVid.autoplay = true;
+        //   newVid.controls = false;
+        //   video.onplay = () => {
+        //     // Keep them linked, also when restarting playback
+        //     newVid.srcObject = video.captureStream();
+        //   };
+        //   newVid.srcObject = stream;
+        //   wrapper.appendChild(newVid);
+        // } catch (e) {
           // Use canvas as a fallback when captureStream fails due to CORS
           const canvas = win.document.createElement("canvas");
           // TODO: Do captureStream() on canvas for Mappertje integration
@@ -272,7 +274,7 @@ const enable = (options) => {
 
           // Draw at 30fps
           startAnimating(30);
-        }
+        // }
 
         
         const button = win.document.createElement("button");
